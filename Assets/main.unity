@@ -192,6 +192,11 @@ Prefab:
       propertyPath: pairedItemXmlIndex
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114191512501919188, guid: c34cb3bdef7a4304dbaea59504e23078,
+        type: 2}
+      propertyPath: description
+      value: A regular looking lamp.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c34cb3bdef7a4304dbaea59504e23078, type: 2}
   m_IsPrefabParent: 0
@@ -641,8 +646,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Notebook
   rating: 1
+  description: 
   xmlIndex: 2
   pairedItemXmlIndex: 5
+  isInspectable: 0
+  rotateSpeed: 25
 --- !u!65 &720907539
 BoxCollider:
   m_ObjectHideFlags: 0
