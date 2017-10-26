@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClueItem : MonoBehaviour {
 
-	public string name;
+	public string itemName;
 	public int rating;
 	public string description;
 	public int xmlIndex;
@@ -12,12 +12,83 @@ public class ClueItem : MonoBehaviour {
 	public bool isInspectable = false;
 	public float rotateSpeed = 25f;
 
-	// Properties for each variable
-	public string Name
-	{
-		get { return (name); }
+	private Rigidbody _rb;
 
-		set { name = value; }
+	void Start () {
+		_rb = GetComponent<Rigidbody> ();
+	}
+
+
+	void Update ()
+	{
+		InspectItem ();
+	}
+
+
+
+	private void InspectItem ()
+	{
+		// Locate and assign the center of the ClueItem to centerOfItem
+		Vector3 centerOfItem = GetComponent<Collider> ().bounds.center;
+
+		// If the item is inspectable we handle input to rotate the object. 
+		// W and S rotate it around the x-axis while A and D rotate around the y-axis
+		if (isInspectable)
+		{
+			// Remove Gravity so the item does not fall down while inspecting
+			_rb.useGravity = false;
+			// Rotate object based on the button pressed
+			// TODO Objects not rotating as preferred.
+			if (Input.GetKey (KeyCode.W))
+			{
+				_rb.constraints = RigidbodyConstraints.FreezePosition;
+				transform.RotateAround (centerOfItem, Vector3.right, rotateSpeed * Time.deltaTime);
+			} 
+			else if (Input.GetKeyUp (KeyCode.W))
+			{
+				_rb.constraints = RigidbodyConstraints.None;
+			} 
+			else if (Input.GetKey (KeyCode.S))
+			{
+				_rb.constraints = RigidbodyConstraints.FreezePosition;
+				transform.RotateAround (centerOfItem, Vector3.right, -rotateSpeed * Time.deltaTime);
+			} 
+			else if (Input.GetKeyUp (KeyCode.S))
+			{
+				_rb.constraints = RigidbodyConstraints.None;
+			}
+			else if (Input.GetKey (KeyCode.A))
+			{
+				_rb.constraints = RigidbodyConstraints.FreezePosition;
+				transform.RotateAround (centerOfItem, Vector3.up, rotateSpeed * Time.deltaTime);
+			}
+			else if (Input.GetKeyUp (KeyCode.A))
+			{
+				_rb.constraints = RigidbodyConstraints.None;
+			}
+			else if (Input.GetKey (KeyCode.D))
+			{
+				_rb.constraints = RigidbodyConstraints.FreezePosition;
+				transform.RotateAround (centerOfItem, Vector3.up, -rotateSpeed * Time.deltaTime);
+			}
+			else if (Input.GetKeyUp (KeyCode.D))
+			{
+				_rb.constraints = RigidbodyConstraints.None;
+			}
+		}
+	}
+
+
+	/********************************************************
+	 * 														*
+	 * Defining Properties for each variable 				*
+	 *														*
+	 *******************************************************/
+	public string ItemName
+	{
+		get { return (itemName); }
+
+		set { itemName = value; }
 	}
 
 	public int Rating 
@@ -46,38 +117,6 @@ public class ClueItem : MonoBehaviour {
 		get { return (pairedItemXmlIndex); }
 
 		set { pairedItemXmlIndex = value; }
-	}
-
-	void Update ()
-	{
-		InspectItem ();
-	}
-
-	private void InspectItem ()
-	{
-		// If the item is inspectable
-		if (isInspectable)
-		{
-			// Rotate object based on the button pressed
-			// TODO Objects not rotating as preferred.
-			if (Input.GetKey(KeyCode.W))
-			{
-				print ("Inspecting Item");
-				transform.rotation *= Quaternion.Euler (new Vector3(rotateSpeed * Time.deltaTime, 0f, 0f));
-			}
-			if (Input.GetKey (KeyCode.S))
-			{
-				transform.rotation *= Quaternion.Euler (new Vector3(-rotateSpeed * Time.deltaTime, 0f, 0f));
-			}
-			if (Input.GetKey (KeyCode.A))
-			{
-				transform.rotation *= Quaternion.Euler (new Vector3(0f, rotateSpeed * Time.deltaTime, 0f));
-			}
-			if (Input.GetKey (KeyCode.D))
-			{
-				transform.rotation *= Quaternion.Euler (new Vector3(0, -rotateSpeed * Time.deltaTime, 0f));
-			}
-		}
 	}
 		
 }
