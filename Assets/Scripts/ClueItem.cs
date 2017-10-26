@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ClueItem : MonoBehaviour {
 
-	private string name;
-	private int rating;
+	public string name;
+	public int rating;
 	private string description;
-	private int xmlIndex;
-	private int pairedItemXmlIndex;
+	public int xmlIndex;
+	public int pairedItemXmlIndex;
 
 	// Properties for each variable
 	public string Name
@@ -45,19 +45,6 @@ public class ClueItem : MonoBehaviour {
 
 		set { pairedItemXmlIndex = value; }
 	}
-
-	void Awake () {
-		 
-		Name = "Lamp";
-		Rating = 4;
-		Description = "This is an ordinary Lamp";
-		XMLIndex = 1;
-		PairedItemXMLIndex = 3;
-
-		print ("Name: " + this.Name + "\n" + "Rating: " + this.Rating + "\nDescription: " + this.Description
-		+ "\n" + "XML Index: " + this.XMLIndex + "\n" + "Paired Item Index: " + this.PairedItemXMLIndex);
-
-		//print ("Camera Position: " + Camera.main.transform.position);
-	}
+		
 		
 }
