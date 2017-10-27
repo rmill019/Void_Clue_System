@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -201,6 +202,16 @@ Prefab:
         type: 2}
       propertyPath: rotateSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114191512501919188, guid: c34cb3bdef7a4304dbaea59504e23078,
+        type: 2}
+      propertyPath: _itemName
+      value: Lamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 114191512501919188, guid: c34cb3bdef7a4304dbaea59504e23078,
+        type: 2}
+      propertyPath: _description
+      value: Not possessed by a poltergeist.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c34cb3bdef7a4304dbaea59504e23078, type: 2}
@@ -415,13 +426,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a0323b98f85c4b80df93e60a0fe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 
-  rating: 4
-  description: Miniature toilet that serves no purpose.
-  xmlIndex: 3
-  pairedItemXmlIndex: 6
-  isInspectable: 0
-  rotateSpeed: 50
+  _itemName: 
+  _rating: 0
+  _description: 
+  _xmlIndex: 0
+  _pairedItemXmlIndex: 0
+  _isInspectable: 0
+  _rotateSpeed: 25
 --- !u!54 &423455907
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -658,7 +669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &609659078
 Light:
   m_ObjectHideFlags: 0
@@ -765,13 +776,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a0323b98f85c4b80df93e60a0fe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 
-  rating: 5
-  description: Regulare Notebook
-  xmlIndex: 1
-  pairedItemXmlIndex: 4
-  isInspectable: 0
-  rotateSpeed: 50
+  _itemName: 
+  _rating: 0
+  _description: 
+  _xmlIndex: 0
+  _pairedItemXmlIndex: 0
+  _isInspectable: 0
+  _rotateSpeed: 25
 --- !u!54 &633993968
 Rigidbody:
   m_ObjectHideFlags: 0
