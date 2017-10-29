@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
@@ -213,7 +212,8 @@ Prefab:
       propertyPath: _description
       value: Not possessed by a poltergeist.
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114191512501919188, guid: c34cb3bdef7a4304dbaea59504e23078, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c34cb3bdef7a4304dbaea59504e23078, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &127289752
@@ -426,6 +426,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a0323b98f85c4b80df93e60a0fe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 0}
+  collider: {fileID: 0}
   _itemName: 
   _rating: 0
   _description: 
@@ -576,6 +578,29 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000012639958778, guid: c34cb3bdef7a4304dbaea59504e23078,
     type: 2}
   m_PrefabInternal: {fileID: 62907496}
+--- !u!114 &477483264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477483263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec3a891ec7b5724c852bed817993174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueItem:
+    _model: {fileID: 477483263}
+    _name: Lamp
+    _description: Not possessed by a poltergeist.
+    _rating: 1
+    _roomName: Who Knows?
+    _coords: {x: 4, y: 0, z: -1}
+    _isInspectable: 0
+    _pairsWith: []
+  _xmlIndex: 0
+  _pairedItemXmlIndex: 0
+  _rotateSpeed: 25
 --- !u!4 &477483268 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000010843767580, guid: c34cb3bdef7a4304dbaea59504e23078,
@@ -776,6 +801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a0323b98f85c4b80df93e60a0fe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 0}
+  collider: {fileID: 0}
   _itemName: 
   _rating: 0
   _description: 

@@ -69,7 +69,7 @@ public class RayCast : MonoBehaviour {
 
 			// cache the ClueItem script for a performance boost.
 			// also, we should probably rename it to ClueItemController.
-			ClueItem clueItemController = clueObject.GetComponent<ClueItem> ();
+			ClueItemController clueItemController = clueObject.GetComponent<ClueItemController> ();
 
 			// Return the ClueItem information stored in the Clue Item we just clicked on 
 			// and log it to the console.
