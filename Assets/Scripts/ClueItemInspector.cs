@@ -33,6 +33,7 @@ public class ClueItemInspector : MonoBehaviour
     void Update()
     {
         ClickItem();
+        //Does not bother calling HandleRotation if the currentClue has already been set
         if (currentClue != null)
             HandleRotation(ref currentClue);
     }
@@ -50,32 +51,55 @@ public class ClueItemInspector : MonoBehaviour
             Debug.DrawRay(pos.origin, pos.direction * rayCastDistance, Color.red, 5f);
             if (Physics.Raycast(pos.origin, pos.direction, out objectHit, rayCastDistance))
             {
+                if (currentClue != null)
+                {
+                    if (objectHit.collider.GetComponent<ClueItem>() != currentClue)
+                        ResetCurrentClue();
+                }
+
                 if (objectHit.collider.gameObject.tag == "Clue")
                 {
                     // Set clueItem to the object that we just hit with the Raycast
                     // cache the ClueItem script for a performance boost.
-                    currentClue = SetCurrentClue(ref objectHit);
+                    SetCurrentClue(ref objectHit);
                     // If the object we hit is tagged as a clue then bring it up for inspection
                     HandleClueViewing(ref currentClue);
                 }
+
             }
         }
     }
 
-    ClueItem SetCurrentClue(ref RaycastHit objectHit)
+    void SetCurrentClue(ref RaycastHit objectHit)
     {
-        //If we already had an old clue, put it back, then set up the newly clicked one
-        if (currentClue != null)
-        { 
-            if (objectHit.collider.GetComponent<ClueItem>() != currentClue)
+        //Store the default position of the clue clicked
+        if (currentClue == null)
+        {
             {
-                currentClue.transform.position = cluePrevPos;
-                currentClue.transform.rotation = cluePrevRot;
-                currentClue.isInspectable = false;
+                currentClue = objectHit.collider.GetComponent<ClueItem>();
+                currentClueCol = objectHit.collider;
+                cluePrevPos = currentClue.transform.position;
+                cluePrevRot = currentClue.transform.localRotation;
+
             }
         }
-        currentClueCol = objectHit.collider;
-        return objectHit.collider.GetComponent<ClueItem>();
+
+        //If we already had an old clue, put it back, then set up the newly clicked one
+
+        else if (objectHit.collider.GetComponent<ClueItem>() != currentClue)
+        {
+            ResetCurrentClue();
+        }
+
+    }
+
+    //
+    void ResetCurrentClue()
+    {
+        currentClue.transform.position = cluePrevPos;
+        currentClue.transform.rotation = cluePrevRot;
+        currentClue.isInspectable = false;
+        currentClue = null;
     }
 
     GameObject CreateLight(Vector3 position)
@@ -99,9 +123,6 @@ public class ClueItemInspector : MonoBehaviour
         // Return the ClueItem information stored in the Clue Item we just clicked on 
         // and log it to the console.
         print(currentClue.ToString()); // overrode its ToString method. 
-
-        cluePrevPos = currentClue.transform.position;
-        cluePrevRot = currentClue.transform.localRotation;
 
         currentClue.isInspectable = true;
 
