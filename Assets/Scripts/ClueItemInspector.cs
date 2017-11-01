@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClueItemManager : MonoBehaviour {
-
-
+public class ClueItemInspector : MonoBehaviour
+{
     public ClueItem currentClue;
-
     // components
-    private Rigidbody rigidbody;
-    private Collider collider;
+    private Collider currentClueCol;
 
-    Vector3 centerOfItem { get { return collider.bounds.center; } }
+    Vector3 cluePrevPos;
+    Quaternion cluePrevRot;
+
+    Vector3 centerOfItem { get { return currentClueCol.bounds.center; } }
     // ^ better to have this as a property, so we don't have to update a var constantly in Update.
     // Can reduce how many calls on the collider are done, too, so potential performance boost!
 
@@ -64,10 +64,19 @@ public class ClueItemManager : MonoBehaviour {
 
     ClueItem SetCurrentClue(ref RaycastHit objectHit)
     {
-        collider = objectHit.collider;
+        //If we already had an old clue, put it back, then set up the newly clicked one
+        if (currentClue != null)
+        { 
+            if (objectHit.collider.GetComponent<ClueItem>() != currentClue)
+            {
+                currentClue.transform.position = cluePrevPos;
+                currentClue.transform.rotation = cluePrevRot;
+                currentClue.isInspectable = false;
+            }
+        }
+        currentClueCol = objectHit.collider;
         return objectHit.collider.GetComponent<ClueItem>();
     }
-
 
     GameObject CreateLight(Vector3 position)
     {
@@ -86,30 +95,33 @@ public class ClueItemManager : MonoBehaviour {
 
     void HandleClueViewing(ref ClueItem currentClue)
     {
-            // Return the ClueItem information stored in the Clue Item we just clicked on 
-            // and log it to the console.
-            print(currentClue.ToString()); // overrode its ToString method. 
 
-            currentClue.isInspectable = true;
+        // Return the ClueItem information stored in the Clue Item we just clicked on 
+        // and log it to the console.
+        print(currentClue.ToString()); // overrode its ToString method. 
 
-            // Set the desired position for viewing/inspecting the clicked on ClueItem
-            Vector3 desiredViewingLocation = mainCam.transform.position;
-            desiredViewingLocation.x -= 1;
-            desiredViewingLocation.z += 3;
+        cluePrevPos = currentClue.transform.position;
+        cluePrevRot = currentClue.transform.localRotation;
 
-            // Set up position to set up the light for inspecting the clueItem
-            Vector3 clueLightLocation = desiredViewingLocation + _lightOffset;
+        currentClue.isInspectable = true;
 
+        // Set the desired position for viewing/inspecting the clicked on ClueItem
+        Vector3 desiredViewingLocation = mainCam.transform.position;
+        desiredViewingLocation.x -= 1;
+        desiredViewingLocation.z += 3;
 
-            currentClue.transform.position = desiredViewingLocation;
+        // Set up position to set up the light for inspecting the clueItem
+        Vector3 clueLightLocation = desiredViewingLocation + _lightOffset;
 
-            // Create a light to view inspectable clueItem
-            if (inspectionLight == null)
-                inspectionLight = CreateLight(clueLightLocation);
+        currentClue.transform.position = desiredViewingLocation;
 
-            //when we're not inspecting anything, we won't need the light
-            else if (inspectionLight != null)
-                    Destroy(inspectionLight);
+        // Create a light to view inspectable clueItem
+        if (inspectionLight == null)
+            inspectionLight = CreateLight(clueLightLocation);
+
+        //when we're not inspecting anything, we won't need the light
+        else if (inspectionLight != null)
+            Destroy(inspectionLight);
     }
 
     // helper methods
@@ -125,7 +137,6 @@ public class ClueItemManager : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.W))
             {
-
                 currentClue.transform.RotateAround(centerOfItem, Vector3.right, currentClue.rotateSpeed * Time.deltaTime);
             }
             else if (Input.GetKeyUp(KeyCode.W))

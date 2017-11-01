@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -392,7 +391,6 @@ GameObject:
   - component: {fileID: 423455910}
   - component: {fileID: 423455909}
   - component: {fileID: 423455908}
-  - component: {fileID: 423455907}
   - component: {fileID: 423455906}
   m_Layer: 0
   m_Name: Toilet
@@ -433,21 +431,6 @@ MonoBehaviour:
   _pairedItemXmlIndex: 0
   _isInspectable: 0
   _rotateSpeed: 25
---- !u!54 &423455907
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 423455904}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &423455908
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -571,31 +554,11 @@ Transform:
   m_Father: {fileID: 654394489}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &477483263 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012639958778, guid: c34cb3bdef7a4304dbaea59504e23078,
-    type: 2}
-  m_PrefabInternal: {fileID: 62907496}
 --- !u!4 &477483268 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000010843767580, guid: c34cb3bdef7a4304dbaea59504e23078,
     type: 2}
   m_PrefabInternal: {fileID: 62907496}
---- !u!54 &477483269
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 477483263}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &480020293
 Prefab:
   m_ObjectHideFlags: 0
@@ -746,7 +709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1e63e4c9870374f85d142a3dab918c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayCastDistance: 20
 --- !u!4 &616080742
 Transform:
   m_ObjectHideFlags: 0
@@ -783,21 +745,6 @@ MonoBehaviour:
   _pairedItemXmlIndex: 0
   _isInspectable: 0
   _rotateSpeed: 25
---- !u!54 &633993968
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 633993966}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &633993969
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -937,6 +884,7 @@ GameObject:
   - component: {fileID: 1131074807}
   - component: {fileID: 1131074806}
   - component: {fileID: 1131074805}
+  - component: {fileID: 1131074810}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1014,6 +962,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1131074810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1131074804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f12f39c5941c514f99da0f2c1cb7613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentClue: {fileID: 0}
+  rayCastDistance: 20
 --- !u!4 &1161894485 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000010920743216, guid: 7841159c855bb0d44bcc9f1f89548d64,
