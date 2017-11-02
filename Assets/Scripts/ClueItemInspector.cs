@@ -26,7 +26,7 @@ public class ClueItemInspector : MonoBehaviour
     void Awake()
     {
         // better to set up component refs in Awake, since it executes before Start
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+		mainCam = Camera.main;
         _lightOffset = new Vector3(0, 2, -3);
     }
 
@@ -38,10 +38,14 @@ public class ClueItemInspector : MonoBehaviour
             HandleRotation(ref currentClue);
     }
 
-    // helper functions
+   
 
-    void ClickItem()
+	/********************************************
+	* HELPER FUNCTIONS							*
+	*********************************************/
+	 void ClickItem()
     {
+		//TODO Look into making this mobile compatible
         if (Input.GetMouseButtonUp(0))
         {
             print("Mouse Button Released");
@@ -49,6 +53,7 @@ public class ClueItemInspector : MonoBehaviour
             print("Position: " + pos);
             RaycastHit objectHit;
             Debug.DrawRay(pos.origin, pos.direction * rayCastDistance, Color.red, 5f);
+			//TODO Put clue's on a specific layer and have the Raycast search only that layer. That way our raycasting is more efficient.
             if (Physics.Raycast(pos.origin, pos.direction, out objectHit, rayCastDistance))
             {
                 if (currentClue != null)
@@ -146,6 +151,7 @@ public class ClueItemInspector : MonoBehaviour
     }
 
     // helper methods
+	//TODO This needs to work with mobile as well. Look into Unity's touch class to get an idea of how we can implement this with a touch screen.
     void HandleRotation(ref ClueItem currentClue)
     {
 
