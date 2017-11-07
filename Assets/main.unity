@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -211,6 +211,11 @@ Prefab:
         type: 2}
       propertyPath: _description
       value: Not possessed by a poltergeist.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114191512501919188, guid: c34cb3bdef7a4304dbaea59504e23078,
+        type: 2}
+      propertyPath: _rotateSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c34cb3bdef7a4304dbaea59504e23078, type: 2}
@@ -408,7 +413,7 @@ Transform:
   m_GameObject: {fileID: 423455904}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: -3.1821113, y: -2.292, z: -3.101227}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 654394489}
   m_RootOrder: 11
@@ -430,7 +435,7 @@ MonoBehaviour:
   _xmlIndex: 0
   _pairedItemXmlIndex: 0
   _isInspectable: 0
-  _rotateSpeed: 25
+  _rotateSpeed: 10
 --- !u!65 &423455908
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -744,7 +749,7 @@ MonoBehaviour:
   _xmlIndex: 0
   _pairedItemXmlIndex: 0
   _isInspectable: 0
-  _rotateSpeed: 25
+  _rotateSpeed: 10
 --- !u!65 &633993969
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -956,7 +961,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1131074804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -14}
+  m_LocalPosition: {x: 0, y: 0, z: -8.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

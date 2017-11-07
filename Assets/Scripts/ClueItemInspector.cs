@@ -78,20 +78,20 @@ public class ClueItemInspector : MonoBehaviour
     void SetCurrentClue(ref RaycastHit objectHit)
     {
         //Store the default position of the clue clicked
-        if (currentClue == null)
-        {
-            {
-                currentClue = objectHit.collider.GetComponent<ClueItem>();
-                currentClueCol = objectHit.collider;
-                cluePrevPos = currentClue.transform.position;
-                cluePrevRot = currentClue.transform.localRotation;
+		if (currentClue == null)
+		{
+			{
+				currentClue = objectHit.collider.GetComponent<ClueItem> ();
+				currentClueCol = objectHit.collider;
+				cluePrevPos = currentClue.transform.position;
+				cluePrevRot = currentClue.transform.localRotation;
 
-            }
-        }
-
+			}
+		}
+			
         //If we already had an old clue, put it back, then set up the newly clicked one
 
-        else if (objectHit.collider.GetComponent<ClueItem>() != currentClue)
+		else if (objectHit.collider.GetComponent<ClueItem>() != currentClue)
         {
             ResetCurrentClue();
         }
@@ -162,41 +162,71 @@ public class ClueItemInspector : MonoBehaviour
             // Rotate object based on the button pressed
             // TODO Objects not rotating as preferred.
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                currentClue.transform.RotateAround(centerOfItem, Vector3.right, currentClue.rotateSpeed * Time.deltaTime);
-            }
-            else if (Input.GetKeyUp(KeyCode.W))
-            {
-                //rigidbody.constraints = RigidbodyConstraints.None;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                //rigidbody.constraints = RigidbodyConstraints.FreezePosition;
-                currentClue.transform.RotateAround(centerOfItem, Vector3.right, -currentClue.rotateSpeed * Time.deltaTime);
-            }
-            else if (Input.GetKeyUp(KeyCode.S))
-            {
-                //rigidbody.constraints = RigidbodyConstraints.None;
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                //rigidbody.constraints = RigidbodyConstraints.FreezePosition;
-                currentClue.transform.RotateAround(centerOfItem, Vector3.up, currentClue.rotateSpeed * Time.deltaTime);
-            }
-            else if (Input.GetKeyUp(KeyCode.A))
-            {
-                //rigidbody.constraints = RigidbodyConstraints.None;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                //rigidbody.constraints = RigidbodyConstraints.FreezePosition;
-                currentClue.transform.RotateAround(centerOfItem, Vector3.up, -currentClue.rotateSpeed * Time.deltaTime);
-            }
-            else if (Input.GetKeyUp(KeyCode.D))
-            {
-                //rigidbody.constraints = RigidbodyConstraints.None;
-            }
+//			// The following handles code for inspecting (rotating) ClueItems on PC
+//            if (Input.GetKey(KeyCode.W))
+//            {
+//                currentClue.transform.RotateAround(centerOfItem, Vector3.right, currentClue.rotateSpeed * Time.deltaTime);
+//            }
+//            else if (Input.GetKeyUp(KeyCode.W))
+//            {
+//                //rigidbody.constraints = RigidbodyConstraints.None;
+//            }
+//            else if (Input.GetKey(KeyCode.S))
+//            {
+//                //rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+//                currentClue.transform.RotateAround(centerOfItem, Vector3.right, -currentClue.rotateSpeed * Time.deltaTime);
+//            }
+//            else if (Input.GetKeyUp(KeyCode.S))
+//            {
+//                //rigidbody.constraints = RigidbodyConstraints.None;
+//            }
+//            else if (Input.GetKey(KeyCode.A))
+//            {
+//                //rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+//                currentClue.transform.RotateAround(centerOfItem, Vector3.up, currentClue.rotateSpeed * Time.deltaTime);
+//            }
+//            else if (Input.GetKeyUp(KeyCode.A))
+//            {
+//                //rigidbody.constraints = RigidbodyConstraints.None;
+//            }
+//            else if (Input.GetKey(KeyCode.D))
+//            {
+//                //rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+//                currentClue.transform.RotateAround(centerOfItem, Vector3.up, -currentClue.rotateSpeed * Time.deltaTime);
+//            }
+//            else if (Input.GetKeyUp(KeyCode.D))
+//            {
+//                //rigidbody.constraints = RigidbodyConstraints.None;
+//            }
+
+
+			// The following handles code for inspecting (rotating) clues on Mobile
+			Touch myTouch = Input.GetTouch (0);
+
+			float x = myTouch.deltaPosition.x;
+			float y = myTouch.deltaPosition.y;
+
+			if (Mathf.Abs(y) > Mathf.Abs(x))
+			{
+				// We are using the y variable in AngleAxis because moving our finger up and down would 
+				// make the object rotate on it's x (right) axis
+
+				currentClue.transform.RotateAround (centerOfItem, Vector3.right, y * currentClue.rotateSpeed * Time.deltaTime);
+//				rb.constraints = RigidbodyConstraints.FreezePosition;
+//				rb.constraints = RigidbodyConstraints.FreezeRotationY;
+//				rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+			}
+
+			if (Mathf.Abs(x) > Mathf.Abs(y))
+			{
+				// We are using the x variable in AngleAxis because moving our finger left and right would 
+				// make the object rotate on it's y (world up) axis
+
+				currentClue.transform.RotateAround (centerOfItem, Vector3.up, x * currentClue.rotateSpeed * Time.deltaTime);
+//				rb.constraints = RigidbodyConstraints.FreezePosition;
+//				rb.constraints = RigidbodyConstraints.FreezeRotationX;
+//				rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+			}
         }
     }
 }
