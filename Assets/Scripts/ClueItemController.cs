@@ -25,6 +25,8 @@ public class ClueItemController : MonoBehaviour {
 	private float 						_rotateSpeed = 25f;
 
 
+
+
 	/*
 	 * Properties to access those clue details.
 	 */
@@ -95,7 +97,7 @@ public class ClueItemController : MonoBehaviour {
 
 	void Update ()
 	{
-		InspectItem ();
+		//InspectItem ();
 	}
 		
 
@@ -175,7 +177,13 @@ public class ClueItemController : MonoBehaviour {
 		return string.Format(messageFormat, this.gameObject, name, rating, description);
 	}
 
-		
+
+	void OnMouseUp()
+	{
+		if (isInspectable) {
+			Debug.Log (this.name + " was clicked!");
+		}
+	}
 }
 
 
