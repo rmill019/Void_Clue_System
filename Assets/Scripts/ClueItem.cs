@@ -5,9 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [System.Serializable]
-public class ClueItem  {
+public class ClueItem  
+{
 
-	// backing fields visible in the inspector
+	#region Backing fields visible in the inspector
 
 	[SerializeField]
 	GameObject _model;
@@ -35,7 +36,9 @@ public class ClueItem  {
 	[SerializeField]
 	List<ClueItem> _pairsWith;
 
-	// properties you access those fields with through code
+	#endregion
+
+	#region Properties you access those fields with through code
 	public GameObject model 	{ get {	return _model; 	} set { _model = value; } }
 	public string name 			{ get { return _name; 	} set { _name = value; } }
 	public string description 	{ get { return _description; } set { _description = value; } }
@@ -45,7 +48,6 @@ public class ClueItem  {
 	public bool isInspectable 	{ get { return _isInspectable; } set { _isInspectable = value; } }
 	//public Location location 	{ get { return _location; } set { _location = value; } }
 
-
-
+	#endregion
 
 }

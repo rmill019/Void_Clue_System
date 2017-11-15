@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Notes at the bottom of this script
 
 public class ClueItemController : MonoBehaviour {
 
-	// components
-	private Rigidbody 				rigidbody;
-	private Collider 				collider;
-	private Renderer 				renderer;
+	#region Events
 
-	// fields
+	#endregion
+
+	#region Components
+	private Rigidbody 				_rigidbody;
+	private Collider 				collider;
+	private Renderer 				_renderer;
+	#endregion
+
+	#region Fields
 	// clue details
 	[SerializeField]
 	ClueItem clueItem;
@@ -24,12 +30,24 @@ public class ClueItemController : MonoBehaviour {
 	[SerializeField]
 	private float 						_rotateSpeed = 25f;
 
+	bool isBeingInspected = false;
+	Vector3 originalPos;
+	Quaternion originalRotation;
+	#endregion
 
+	#region Properties to access those clue details.
 
+	public Rigidbody rigidbody 
+	{
+		get { return _rigidbody;}
+		set { _rigidbody = value; }
+	}
 
-	/*
-	 * Properties to access those clue details.
-	 */
+	public Renderer renderer 
+	{
+		get { return _renderer;}
+		set { _renderer = value; }
+	}
 
 	public string 						itemName
 	{
@@ -80,27 +98,36 @@ public class ClueItemController : MonoBehaviour {
 	Vector3 centerOfItem {get { return collider.bounds.center;}}
 	// ^ better to have this as a property, so we don't have to update a var constantly in Update.
 	// Can reduce how many calls on the collider are done, too, so potential performance boost!
+	#endregion
 
-	// methods
+	#region Other properties
+	public bool isVisible
+	{
+		get { return renderer.enabled; }
+	}
+
+	#endregion
+
+	#region Methods
 	void Awake()
 	{
 		// better to set up component refs in Awake, since it executes before Start
-		rigidbody 			= 			GetComponent<Rigidbody> ();
-		collider 			= 			GetComponent<Collider> ();
-		renderer = GetComponent<Renderer> ();
+		_rigidbody = 					GetComponent<Rigidbody> ();
+		collider = 						GetComponent<Collider> ();
+		renderer = 						GetComponent<Renderer> ();
+		originalPos = 					transform.position;
+		originalRotation = 				transform.rotation;
 	}
 
 	void Start () {
 		
 	}
-
-
+		
 	void Update ()
 	{
-		//InspectItem ();
+		InspectItem ();
 	}
 		
-
 	private void InspectItem ()
 	{
 		HandleRotation ();
@@ -115,6 +142,8 @@ public class ClueItemController : MonoBehaviour {
 		// W and S rotate it around the x-axis while A and D rotate around the y-axis
 		if (isInspectable)
 		{
+			isBeingInspected = true;
+
 			// Remove Gravity so the item does not fall down while inspecting
 			rigidbody.useGravity = false;
 
@@ -165,25 +194,47 @@ public class ClueItemController : MonoBehaviour {
 			{
 				rigidbody.constraints = RigidbodyConstraints.None;
 			}
+
+			if (Input.GetMouseButtonDown (1)) // right click to stop inspecting the item
+				PutBackInOriginalPlace ();
+			
 		}
 	}
 
 	public override string ToString ()
 	{
 		// returns a string with the clue's basic info.
-
 		string messageFormat = "We hit: {0}\nName: {1}\nRating: {2}\nDescription: {3}";
 
 		return string.Format(messageFormat, this.gameObject, name, rating, description);
 	}
-
-
+		
 	void OnMouseUp()
 	{
-		if (isInspectable) {
+		if (isInspectable) 
 			Debug.Log (this.name + " was clicked!");
-		}
+		
 	}
+		
+	public void SetVisibility(bool visibility, bool recursive = false)
+	{
+		GetComponent<Renderer>().enabled = visibility;
+
+		if (recursive)
+			foreach (Transform transform in gameObject.transform)
+				transform.gameObject.SetVisibility (visibility, recursive);
+
+	}
+
+	public void PutBackInOriginalPlace()
+	{
+		isInspectable = false;
+		transform.rotation = originalRotation;
+		transform.position = originalPos;
+	}
+
+	#endregion
+
 }
 
 
