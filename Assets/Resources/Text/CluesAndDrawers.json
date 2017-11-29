@@ -32,7 +32,7 @@
 	{
 		"title": "ClueSetup",
 		"tags": "",
-		"body": "<<set $clue1 = \"Small Mirror\">>\n<<remember $clue1>>\n",
+		"body": "<!-- <<set $clue1 = \"Small Mirror\">> -->\n<<set $clue1 = either(\"Small Mirror\", \"Lamp\", \"Toilet\")>>\n\n<<remember $clue1>>\n",
 		"position": {
 			"x": -237,
 			"y": -129

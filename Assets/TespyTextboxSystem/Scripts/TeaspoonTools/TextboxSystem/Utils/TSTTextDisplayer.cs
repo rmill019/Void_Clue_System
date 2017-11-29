@@ -21,17 +21,17 @@ namespace TeaspoonTools.TextboxSystem.Utils
 		Text textField;
 		AudioSource sfxPlayer;
 		AudioClip textSound;
-		TextSpeedSettings textSpeedSettings;
+		public TextSettings textSettings { get; set; }
 
 		bool showingText = false;
 
 		public TextDisplayer(Text textField, ICollection textToDisplay,
-							 TextSpeedSettings textSpeedSettings, AudioSource sfxPlayer, 
+							 TextSettings textSettings, AudioSource sfxPlayer, 
 						     AudioClip textSound = null)
 		{
 			this.textField = textField;
 			this.textToDisplay = textToDisplay as List<string>;
-			this.textSpeedSettings = textSpeedSettings;
+			this.textSettings = textSettings;
 			this.sfxPlayer = sfxPlayer;
 			this.textSound = textSound;
 		}
@@ -183,7 +183,7 @@ namespace TeaspoonTools.TextboxSystem.Utils
 		{
 
 			if (!waitedLongEnough)
-				pauseDuration = 1f / (float)textSpeedSettings.higherSpeed;
+				pauseDuration = 1f / (float)textSettings.higherTextSpeed;
 			else
 				NormalizeScrollingSpeed(ref pauseDuration);
 
@@ -191,7 +191,7 @@ namespace TeaspoonTools.TextboxSystem.Utils
 
 		void NormalizeScrollingSpeed(ref float pauseDuration)
 		{
-			pauseDuration = 1f / (float)textSpeedSettings.normalSpeed;
+			pauseDuration = 1f / (float)textSettings.textSpeed;
 		}
 
 	}

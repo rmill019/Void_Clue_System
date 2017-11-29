@@ -1468,6 +1468,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1152107703595920, guid: 5508a05feaa7c2e4088ccd5e34af9642,
         type: 2}
+    - target: {fileID: 114289421780973622, guid: dc4766950c5a23949a1643c7eac091bd,
+        type: 2}
+      propertyPath: textSettings.textSpeed
+      value: 999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dc4766950c5a23949a1643c7eac091bd, type: 2}
   m_IsPrefabParent: 0

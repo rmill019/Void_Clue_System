@@ -105,6 +105,13 @@ namespace Yarn.Unity
 		void Awake()
 		{
 			S = this;
+
+            dialogue.library.RegisterFunction("either", -1, 
+                                            delegate(Value[] parameters)
+                                            {
+                                                int ind = Random.Range(0, parameters.Length);
+                                                return parameters[ind].AsString;
+                                            });
 		}
 
         /// Start the dialogue

@@ -207,7 +207,7 @@ namespace Yarn
             default:
                 throw new ArgumentOutOfRangeException ();
             }
-
+            
         }
 
         // override object.GetHashCode

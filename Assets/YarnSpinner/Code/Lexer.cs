@@ -315,10 +315,10 @@ namespace Yarn {
 
         public Lexer ()
         {
-            CreateStates ();
+            CreateInstancetates ();
         }
 
-        void CreateStates ()
+        void CreateInstancetates ()
         {
 
             var patterns = new Dictionary<TokenType, string> ();
