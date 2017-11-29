@@ -7,7 +7,7 @@ using UnityEngine;
 // A list of gameobjects does not persist through scenes. So we have to store the clue's information
 // in a static list of type ClueInfo (a Struct) in order to be able to access it through scenes.
 [System.Serializable]
-public struct ClueInfo
+public struct ClueInfo : System.IEquatable<ClueInfo>
 {
     public int id;
     public int rating;
@@ -32,6 +32,12 @@ public struct ClueInfo
         clueName = clue.clueName;
         description = clue.description;
     }
+
+	public bool Equals(ClueInfo other)
+	{
+		return (other.id == this.id && other.rating == this.rating &&
+				other.clueName == this.clueName && other.description == this.description);
+	}
 }
 
 public class ClueItem : MonoBehaviour

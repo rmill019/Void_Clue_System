@@ -9,7 +9,7 @@ namespace Yarn
     {
         private static readonly ErrorListener instance = new ErrorListener();
         private ErrorListener(){}
-        public static ErrorListener Instance
+        public static ErrorListener S
         {
             get
             {

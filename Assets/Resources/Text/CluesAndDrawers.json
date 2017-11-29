@@ -1,0 +1,52 @@
+[
+	{
+		"title": "EmptyDrawer",
+		"tags": "",
+		"body": "<<Textbox>>\nNope. Nothing in here.\n<</Textbox>>",
+		"position": {
+			"x": -237,
+			"y": 92
+		},
+		"colorID": 0
+	},
+	{
+		"title": "MirrorInDrawer",
+		"tags": "",
+		"body": "<<if $clue1Found is false>>\n    <<Textbox>>\n    Oh look, a [$clue1] in the drawer. Maybe we should inspect it.\n    <</Textbox>>\n    [[Inspect it|InspectIt]]\n    [[Leave it alone|LeaveItAlone]]\n<<else>>\n    <<Textbox>>\n    There's a [$clue1] in the drawer.\n    [[Inspect it|InspectIt]]\n    [[Leave it alone|LeaveItAlone]]\n    <</Textbox>>\n<<endif>>\n\n",
+		"position": {
+			"x": -9,
+			"y": -130
+		},
+		"colorID": 0
+	},
+	{
+		"title": "InspectIt",
+		"tags": "",
+		"body": "<<set $clue1Found = true>>\n<<ViewClue GameController $clue1>>\n",
+		"position": {
+			"x": 279,
+			"y": -133
+		},
+		"colorID": 0
+	},
+	{
+		"title": "ClueSetup",
+		"tags": "",
+		"body": "<<set $clue1 = \"Small Mirror\">>\n<<remember $clue1>>\n",
+		"position": {
+			"x": -237,
+			"y": -129
+		},
+		"colorID": 0
+	},
+	{
+		"title": "LeaveItAlone",
+		"tags": "",
+		"body": "<<Textbox>>\nMeh.\n<</Textbox>>",
+		"position": {
+			"x": 278,
+			"y": 128
+		},
+		"colorID": 0
+	}
+]

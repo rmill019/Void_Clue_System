@@ -9,13 +9,13 @@ public class ClueViewManager : MonoBehaviour
 {
     // manages how the clues are shown in the clue view
 
-    public static ClueViewManager instance;
+    public static ClueViewManager S;
 
     public GameObject buttonGroup;
 
     void Awake()
     {
-        instance = this;
+        S = this;
     }
 
     void SetupViewGroup()
@@ -23,8 +23,8 @@ public class ClueViewManager : MonoBehaviour
         // looks through all the clues in the clue log, and sets them
         // up in the view group
 
-        List<ClueInfo> clueLog = UIController.instance.clueLog;
-        List<GameObject> loggedCluePrefabs = UIController.instance.loggedCluePrefabs;
+        List<ClueInfo> clueLog = UIController.S.clueLog;
+        List<GameObject> loggedCluePrefabs = UIController.S.loggedCluePrefabs;
 
         // will be used in the following loop
         GameObject clueButtonGo;

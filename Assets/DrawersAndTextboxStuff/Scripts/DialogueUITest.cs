@@ -69,7 +69,7 @@ public class DialogueUITest : DialogueUIBehaviour {
 		// Add the lines to the text to show. Note that grouping up the 
 		// lines like this is why I added a paused flag to DialogueRunner
 		if (readingDialogue)
-			textToShow.Append(line.text.Replace('\n', ' '));
+			textToShow.Append(ParseLine(line.text.Replace('\n', ' ')));
 		
 		yield return null;
 	}
@@ -198,6 +198,18 @@ public class DialogueUITest : DialogueUIBehaviour {
 		textboxController.DisplayText (textToShow.ToString());
 	}
 
+	void ProcessText(string text)
+	{
+		/*
+		Checks the given text for variable names, and replaces those names with
+		their corresponding values. 
+		*/
+
+		string textCopy = string.Copy(text);
+		string result = "";
+
+		
+	}
 	void ResumeDialogueRunning()
 	{
 		// signals to the dialogue runner to keep running dialogue for this module
@@ -226,6 +238,78 @@ public class DialogueUITest : DialogueUIBehaviour {
 		setController.rectTransform.PositionRelativeToParent(TextAnchor.MiddleRight);
 
 		return optionWindow;
+	}
+
+	string ParseLine(string textToParse)
+	{
+		/*
+		 * Parses the passed text, making sure to replace the variables with their appropriate
+		 * values. Returns the result.
+		 */
+
+		string textCopy = string.Copy(textToParse);
+		StringBuilder result = new StringBuilder ();
+
+		char varStartMarker = '[';
+		char varEndMarker = ']';
+		int startMarkerIndex;
+		int endMarkerIndex;
+		string varText;
+		Yarn.Value varValue;
+
+		// scan the text for the var markers, see if they are being used to put in var 
+		// values
+		while (textCopy.Length > 0) 
+		{
+			startMarkerIndex = 	textCopy.IndexOf (varStartMarker);
+			endMarkerIndex = 	textCopy.IndexOf (varEndMarker);
+
+			// make sure there are any vars left to parse
+			if (startMarkerIndex >= 0 && endMarkerIndex > startMarkerIndex) 
+			{
+
+				// TODO: Make sure the var is only parsed if it has no backslash preceding either
+				// marker
+				/*
+				// and only parse if there isn't a backslash prefixing the start marker or 
+                // end marker
+				bool showStartMarker = false;
+				bool showEndMarker = false;
+                try
+                {
+                    showStartMarker = textCopy[startMarkerIndex - 1] == '\\';
+                    showEndMarker = textCopy[endMarkerIndex - 1] == '\\';
+
+
+                }
+				catch (System.IndexOutOfRangeException e)
+				{
+					// Happens after checking whether or not to show the start marker. Based on which
+					// one is true (if any), just proceed like normal. 
+
+
+
+				}
+				finally
+				{
+					if (showStartMarker)
+				}
+				*/
+				varText = 		textCopy.Substring (startMarkerIndex + 1, endMarkerIndex - startMarkerIndex - 1);
+				varValue = 		dialogueRunner.variableStorage.GetValue (varText);
+				result.Append(textCopy.Substring(0, startMarkerIndex) + varValue.AsString);
+				textCopy = 		textCopy.Substring (endMarkerIndex + 1);
+
+			}
+            else
+            {
+                result.Append(textCopy);
+                break;
+            }
+		}
+
+
+		return result.ToString ();
 	}
 
 }

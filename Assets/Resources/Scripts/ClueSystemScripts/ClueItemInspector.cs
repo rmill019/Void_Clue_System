@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Linq;
-
+using Yarn.Unity;
+using TeaspoonTools.TextboxSystem;
 
 public class ClueItemInspector : MonoBehaviour
 {
@@ -76,10 +77,14 @@ public class ClueItemInspector : MonoBehaviour
 
     void Update()
     {
-        ClickItem();
-        //Does not bother calling HandleRotation if the currentClue has already been set
-        if (cloneClueItem != null)
-            HandleRotation(ref cloneClueItem);
+        
+        if (!DialogueRunner.S.isDialogueRunning && Textbox.textboxesOnScreen == 0)
+        {
+            ClickItem();
+            //Does not bother calling HandleRotation if the currentClue has already been set
+            if (cloneClueItem != null)
+                HandleRotation(ref cloneClueItem);
+        }
     }
 
     public void DisplayClue(ClueItem clueToDisplay, bool onlyInLog = true)
@@ -95,7 +100,7 @@ public class ClueItemInspector : MonoBehaviour
         if (onlyInLog)
         {
             // check if the clue item is in the log
-            foreach (GameObject prefab in UIController.instance.loggedCluePrefabs)
+            foreach (GameObject prefab in UIController.S.loggedCluePrefabs)
             {
                 currentClueItem = prefab.GetComponent<ClueItem>();
                 if (currentClueItem == clueToDisplay)
@@ -109,7 +114,7 @@ public class ClueItemInspector : MonoBehaviour
             if (currentClueItem != clueToDisplay)
                 throw new System.ArgumentException("Passed clue item is not in the clue log.");
 
-            UIController.instance.HideCaptainsLog(CaptainsLogMenus.clueLog);
+            UIController.S.HideCaptainsLog(CaptainsLogMenus.clueLog);
             SetCurrentClue(ref clueToDisplay);
             HandleClueViewing(ref clueToDisplay);
             clueUIWindow.SetActive(true);
@@ -117,13 +122,13 @@ public class ClueItemInspector : MonoBehaviour
         else
         {
             // check the whole clue database for the clue to display
-            currentClueItem = (from GameObject prefab in ClueDatabase.instance.cluePrefabs
+            currentClueItem = (from GameObject prefab in ClueDatabase.S.cluePrefabs
                                where prefab.GetComponent<ClueItem>() == clueToDisplay
                                select prefab.GetComponent<ClueItem>()).First();
 
             if (currentClueItem != null)
             {
-                UIController.instance.HideCaptainsLog(CaptainsLogMenus.clueLog);
+                UIController.S.HideCaptainsLog(CaptainsLogMenus.clueLog);
                 SetCurrentClue(ref clueToDisplay);
                 HandleClueViewing(ref clueToDisplay);
                 clueUIWindow.SetActive(true);
@@ -230,7 +235,7 @@ public class ClueItemInspector : MonoBehaviour
             //Vector3 location to spawn clone
             Vector3 desiredViewingLocation = cloneCluePos;
 
-            cloneClue = Instantiate(ClueDatabase.instance.GetCluePrefab(clueItem.name),
+            cloneClue = Instantiate(ClueDatabase.S.GetCluePrefab(clueItem.name),
                                     desiredViewingLocation,
                                     Quaternion.Euler(0, 0, 0));
             
@@ -254,7 +259,10 @@ public class ClueItemInspector : MonoBehaviour
     public void StoreCurrentClue()
     {
         if (currentClue != null)
+        {
             ClueManager.S.AddClue(ref currentClue);
+            UIController.S.AddToClueLog(currentClue.name);
+        }
     }
 
     //

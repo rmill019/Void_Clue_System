@@ -44,7 +44,7 @@ namespace Yarn.Unity
     [AddComponentMenu("Scripts/Yarn Spinner/Dialogue Runner")]
     public class DialogueRunner : MonoBehaviour
     {
-		public static DialogueRunner instance;
+		public static DialogueRunner S;
 
 		public bool paused = false;
 
@@ -104,7 +104,7 @@ namespace Yarn.Unity
 
 		void Awake()
 		{
-			instance = this;
+			S = this;
 		}
 
         /// Start the dialogue

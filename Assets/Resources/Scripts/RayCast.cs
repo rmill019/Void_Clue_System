@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TeaspoonTools.TextboxSystem;
+using Yarn.Unity;
 
 public class RayCast : MonoBehaviour {
 
@@ -25,6 +27,7 @@ public class RayCast : MonoBehaviour {
 
 	void Update ()
 	{
+		
 		ClickItem ();
 
 		if (lastClueFound != null && !lastClueFound.isInspectable && inspectionLight != null) 
@@ -42,7 +45,7 @@ public class RayCast : MonoBehaviour {
 
 			Destroy (inspectionLight);
 		}
-
+		
 	}
 
 

@@ -9,7 +9,7 @@ public class InventoryClueButton : Button
     // UI work.
 
     public new RectTransform rectTrans;
-    public ClueItem clue { get; private set; } // clue mapped to this instance
+    public ClueItem clue { get; private set; } // clue mapped to this S
     bool clueBeingDisplayed = false;
 
     protected override void Awake()

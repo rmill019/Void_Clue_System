@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a0323b98f85c4b80df93e60a0fe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1
   itemName: Small Mirror
   rating: 1
   description: There's a strange stain in the corner...

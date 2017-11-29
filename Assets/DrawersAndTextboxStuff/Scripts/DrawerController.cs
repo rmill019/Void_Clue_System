@@ -29,12 +29,12 @@ public class DrawerController : MonoBehaviour
 
 	void Start()
 	{
-		gameController = GameController.instance;
-		DialogueUITest dialogueUI = DialogueRunner.instance.dialogueUI as DialogueUITest;
+		gameController = GameController.S;
+		DialogueUITest dialogueUI = DialogueRunner.S.dialogueUI as DialogueUITest;
 
 		dialogueUI.EndedDialogue.AddListener (this.SlideIn);
 		//dialogueUI.EndedDialogue.AddListener (() => DrawerController.sliding = false);
-		////Debug.Log ("SlideIn listener added!");
+		//Debug.Log ("SlideIn listener added!");
 	}
 	
 	// Update is called once per frame
@@ -127,6 +127,6 @@ public class DrawerController : MonoBehaviour
 	void RunDialogue()
 	{
 		
-		DialogueRunner.instance.StartDialogue (textStartNode);
+		DialogueRunner.S.StartDialogue (textStartNode);
 	}
 }

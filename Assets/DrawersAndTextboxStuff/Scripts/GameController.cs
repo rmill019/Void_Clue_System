@@ -20,7 +20,7 @@ public enum CaptainsLogMenus
 public class UIController
 {
     // submodule for the game controller that controls the UI
-    public static UIController instance; // singleton
+    public static UIController S; // singleton
     GameController controller;
     public Dictionary<CaptainsLogMenus, GameObject> captainsLogCanvases { get; private set; }
 
@@ -47,7 +47,7 @@ public class UIController
     public UIController()
     {
         Debug.Log("UI controller constructor!");
-        instance = this;
+        S = this;
         clueLog = new List<ClueInfo>();
         loggedCluePrefabs = new List<GameObject>();
         
@@ -58,7 +58,7 @@ public class UIController
         SetupCaptainsLog();
         /*
         clueLogCanvas.SetActive(true);
-        //ClueViewManager.instance = clueLogCanvas.GetComponent<ClueViewManager>();
+        //ClueViewManager.S = clueLogCanvas.GetComponent<ClueViewManager>();
         clueLogCanvas.SetActive(false);
         */
     }
@@ -100,10 +100,33 @@ public class UIController
     
     public void AddToClueLog(string clueName)
     {
-        clueLog.Add(ClueDatabase.instance.GetClueInfo(clueName));
-        loggedCluePrefabs.Add(ClueDatabase.instance.GetCluePrefab(clueName));
+        ClueInfo clueInfo = ClueDatabase.S.GetClueInfo(clueName);
+
+        // make sure this clue isn't already in the log
+        if (!clueLog.Contains(clueInfo))
+        {
+            clueLog.Add(clueInfo);
+            loggedCluePrefabs.Add(ClueDatabase.S.GetCluePrefab(clueName));
+        }
 
         Debug.Log("Added new clue to log! Clue name: " + clueName);
+    }
+
+    public void ViewClue(string clueName)
+    {
+        ShowCaptainsLog(CaptainsLogMenus.clueView);
+
+        // fetch the clue from the database, and use its clue item script to
+        // help display it
+
+        GameObject cluePrefab = ClueDatabase.S.GetCluePrefab(clueName.RemoveChar(' '));
+        // ^We need all the spaces removed; prefab names cannot have spaces
+
+        ClueItem itemScript = null;
+        if (cluePrefab != null)
+            itemScript = cluePrefab.GetComponent<ClueItem>();
+
+        ClueItemInspector.S.DisplayClue(itemScript, false);
     }
 
 
@@ -111,7 +134,7 @@ public class UIController
 
 public class GameController : MonoBehaviour 
 {
-	public static GameController instance; // singleton
+	public static GameController S; // singleton
 
     [SerializeField]
     UIController uiController;
@@ -125,7 +148,7 @@ public class GameController : MonoBehaviour
 
 	void Awake()
 	{
-		instance = this;
+		S = this;
 		gamePaused = false;
         //uiController = new UIController();
         uiController.Initialize(this);
@@ -134,7 +157,7 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		dialogueRunner = DialogueRunner.instance;
+		dialogueRunner = DialogueRunner.S;
 	}
 	
 	// Update is called once per frame
@@ -188,6 +211,23 @@ public class GameController : MonoBehaviour
     public void AddToClueLog(string clueName)
     {
         uiController.AddToClueLog(clueName);
+    }
+
+    [YarnCommand("ViewClue")]
+    public void ViewClue(string clueName)
+    {
+        // if the clueName is a var, treat its value as the actual clue name
+        bool nameIsVar = clueName[0] == '$';
+        Yarn.Value varVal;
+        string effClueName;
+        if (nameIsVar)
+        {
+            varVal = DialogueRunner.S.variableStorage.GetValue(clueName);
+            effClueName = varVal.AsString;
+        }
+        else
+            effClueName = string.Copy(clueName);
+        uiController.ViewClue(effClueName);
     }
 
     void HandleControls()

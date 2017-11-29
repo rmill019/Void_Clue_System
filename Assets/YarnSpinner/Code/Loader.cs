@@ -246,7 +246,7 @@ namespace Yarn {
                 YarnSpinnerParser parser = new YarnSpinnerParser(tokens);
                 // turning off the normal error listener and using ours
                 parser.RemoveErrorListeners();
-                parser.AddErrorListener(ErrorListener.Instance);
+                parser.AddErrorListener(ErrorListener.S);
 
                 IParseTree tree = parser.dialogue();
                 AntlrCompiler antlrcompiler = new AntlrCompiler(library);
