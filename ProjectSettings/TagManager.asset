@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Clue
+  - Drawer
+  - ClueCanvas
+  - NewsCanvas
+  - MainLogCanvas
+  - CrewCanvas
+  - Prop
+  - ViewCanvas
   layers:
   - Default
   - TransparentFX
